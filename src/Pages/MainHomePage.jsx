@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from './MainPagesComponents/Hero'
+import Hero from './MainPagesComponents/hero'
 import DailyReports from './MainPagesComponents/DailyReports'
 import Technology from './MainPagesComponents/Technology'
 import TopVideos from './MainPagesComponents/TopVideos'

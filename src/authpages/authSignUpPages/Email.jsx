@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import undrawLogo from "../../assets/signUpPageImages/undraw.png";
+import undrawLogo from "../../assets/SignuppageImages/undraw.png";
 
 const Email = () => {
     const [otp, setOtp] = useState("");
