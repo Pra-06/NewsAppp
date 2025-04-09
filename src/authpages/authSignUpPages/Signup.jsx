@@ -6,6 +6,7 @@ import panaLogo from "../../assets/SignuppageImages/pana.png";
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -20,9 +21,7 @@ const Signup = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    console.log(formData.username)
 
-    
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
@@ -34,7 +33,6 @@ const Signup = () => {
             formData
         )
         .then((response) => {
-          
             setSuccessMessage(response.data.message);
             setFormData({
                 username: "",
@@ -61,7 +59,6 @@ const Signup = () => {
                     <p className="text-sm text-gray-800">Join us today! Get the latest news at your fingertips.</p>
                     
                     {error && <p className="text-red-500 text-sm">{error}</p>}
-
                     {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
                     
                     <form className="flex flex-col" onSubmit={handleSubmit}>
@@ -118,7 +115,11 @@ const Signup = () => {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                                 >
-                                    {showPassword ? <img src={EyeOffIcon} className="w-6" /> : <img src={EyeIcon} className="w-6" />}
+                                    {showPassword ? (
+                                        <img src={EyeOffIcon} className="w-6" />
+                                    ) : (
+                                        <img src={EyeIcon} className="w-6" />
+                                    )}
                                 </button>
                             </div>
                         </div>
@@ -126,7 +127,7 @@ const Signup = () => {
                             <label className="block mb-2 text-sm font-medium">Confirm Password</label>
                             <div className="relative">
                                 <input
-                                    type={showPassword ? "text" : "password"}
+                                    type={showConfirmPassword ? "text" : "password"}
                                     name="confirmPassword"
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
@@ -136,10 +137,14 @@ const Signup = () => {
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                                 >
-                                    {showPassword ? <img src={EyeOffIcon} className="w-6" /> : <img src={EyeIcon} className="w-6" />}
+                                    {showConfirmPassword ? (
+                                        <img src={EyeOffIcon} className="w-6" />
+                                    ) : (
+                                        <img src={EyeIcon} className="w-6" />
+                                    )}
                                 </button>
                             </div>
                         </div>
