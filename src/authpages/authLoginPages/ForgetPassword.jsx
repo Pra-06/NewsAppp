@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ForgetPass from '../../assets/loginPageImages/forgetPass.png'
+import ForgetPass from '../../assets/loginPageImages/f~orgetPass.png'
 import { useState} from 'react';
 
 
