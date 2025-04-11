@@ -29,7 +29,7 @@ const Signup = () => {
         setSuccessMessage("");
 
         axios.post(
-            "https://newsportalbackend-crdw.onrender.com/api/users/signup",
+            "https://newsportalbackend-crdw.onrender.com/api/user/signup",
             formData
         )
         .then((response) => {

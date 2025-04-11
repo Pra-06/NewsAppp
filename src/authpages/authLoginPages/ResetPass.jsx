@@ -1,32 +1,62 @@
-import React,{useState} from 'react'
-import  EyeIcon from '../../assets/loginPageImages/eye-open.png'
-import  EyeOffIcon from '../../assets/loginPageImages/eye.png'
-import resetPass from '../../assets/loginPageImages/resetPass.png'
+import React, { useState } from 'react';
+import axios from 'axios';
+import EyeIcon from '../../assets/loginPageImages/eye-open.png';
+import EyeOffIcon from '../../assets/loginPageImages/eye.png';
+import resetPass from '../../assets/loginPageImages/resetPass.png';
 
 const ResetPass = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await axios.post('https://newsportalbackend-crdw.onrender.com/api/user/reset-password', {
+        password,
+      });
+
+      if (response.status === 200) {
+        alert('Password reset successfully!');
+        setPassword('');
+        setConfirmPassword('');
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || 'Something went wrong!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex w-[100%] flex-col-reverse items-center justify-center md:flex-row md:flex lg:h-screen md:h-screen h-full">
       <div className="lg:min-w-100 bg-white rounded-lg min-w- shadow-lg border border-[#878787] border-zinc-400 m-4 p-1">
         <div className="p-6 space-y-4 sm:p-8">
           <p className="py-2 text-xl text-[#282828]">Welcome back !</p>
           <h1 className="text-xl mb-1 font-semibold md:text-2xl">Reset Password</h1>
-          <p className="text-sm text-[#282828]">
-            Set a new password to your account
-          </p>
-          <form className="flex justify-center flex-col" action="#">
+          <p className="text-sm text-[#282828]">Set a new password to your account</p>
+
+          <form onSubmit={handleSubmit} className="flex justify-center flex-col">
             <div className="mb-[8%]">
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-800"
-              >
+              <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-800">
                 New Password
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="border border-gray-300 rounded-lg w-full p-2.5 pr-10 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your password"
                   required
@@ -36,28 +66,24 @@ const ResetPass = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                 >
-                  {showPassword ? (
-                    <img src={EyeOffIcon} className="w-6" />
-                  ) : (
-                    <img src={EyeIcon} className="w-6" />
-                  )}
+                  <img src={showPassword ? EyeOffIcon : EyeIcon} className="w-6" alt="Toggle visibility" />
                 </button>
               </div>
             </div>
+
             <div className="mb-1">
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-800"
-              >
+              <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-800">
                 Confirm Password
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   className="border border-gray-300 rounded-lg w-full p-2.5 pr-10 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter your password"
+                  placeholder="Confirm your password"
                   required
                 />
                 <button
@@ -65,44 +91,41 @@ const ResetPass = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                 >
-                  {showPassword ? (
-                    <img src={EyeOffIcon} className="w-6" />
-                  ) : (
-                    <img src={EyeIcon} className="w-6" />
-                  )}
+                  <img src={showPassword ? EyeOffIcon : EyeIcon} className="w-6" alt="Toggle visibility" />
                 </button>
               </div>
             </div>
+
             <div className="flex items-center justify-end mb-1.5 lg:mb-5 md:mb-2.5">
-                <p className="text-sm font-light text-gray-500 text-gray-400 flex justify-center">
-                  Go Back to<a href="#" className="pl-1 text-[#101450] font-medium hover:underline">Login</a>
-                </p>
+              <p className="text-sm font-light text-gray-500 text-gray-400 flex justify-center">
+                Go Back to
+                <a href="#" className="pl-1 text-[#101450] font-medium hover:underline">Login</a>
+              </p>
             </div>
+
             <button
               type="submit"
-              className="my-4 lg:mb-6 md:mb-3 mb-2 w-full text-white bg-[#101450] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  bg-primary-600  hover:bg-primary-700  focus:ring-primary-800"
+              disabled={loading}
+              className="my-4 lg:mb-6 md:mb-3 mb-2 w-full text-white bg-[#101450] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-700"
             >
-              Login
+              {loading ? 'Reseting...' : 'Reset Password'}
             </button>
+
             <div>
               <p className="text-sm font-light text-gray-500 text-gray-400 flex justify-center">
-                Don’t have an Account ?{" "}
-                <a
-                  href="#"
-                  className="font-medium hover:underline text-[#101450] "
-                >
-                  Register
-                </a>
+                Don’t have an Account ?
+                <a href="#" className="font-medium hover:underline text-[#101450] pl-1">Register</a>
               </p>
             </div>
           </form>
         </div>
       </div>
+
       <div className="m-4">
-        <img src={resetPass} alt="" className='size-70' />
+        <img src={resetPass} alt="Reset Password" className="size-70" />
       </div>
     </div>
   );
-}
+};
 
-export default ResetPass
+export default ResetPass;

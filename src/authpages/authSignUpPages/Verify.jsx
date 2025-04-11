@@ -25,7 +25,7 @@ const Verify = () => {
     setMessage(""); // Reset message before sending OTP
 
     axios
-      .post("https://newsportalbackend-crdw.onrender.com/api/otp/send-otp", { email })
+      .post("https://newsportalbackend-crdw.onrender.com/api/user/resend-otp", { email })
       .then((response) => {
         setMessage(response.data.message);
 

@@ -12,7 +12,7 @@ const Email = () => {
         setMessage("");
         setError("");
 
-        axios.post("https://your-api.com/verify-otp", { otp: otp })
+        axios.post("https://newsportalbackend-crdw.onrender.com/api/user/verify-email", { otp: otp })
             .then((response) => {
                 if (response.data.success) {
                     setMessage("OTP verification successful! Your account is now activated.");

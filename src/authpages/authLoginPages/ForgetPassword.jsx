@@ -30,7 +30,7 @@ const ForgetPassword = () => {
        return
     }
     else{
-      const response = await axios.post("https://newsportalbackend-crdw.onrender.com/api/v1/users/reset", values)
+      const response = await axios.post("https://newsportalbackend-crdw.onrender.com/api/user/forgot-Password", values)
       console.log(response)
       alert(response.data.message)
 
