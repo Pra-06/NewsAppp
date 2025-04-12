@@ -1,90 +1,105 @@
 import React, { useState } from "react";
 import axios from "axios";
-import editLogo from "../../assets/SignuppageImages/edit.png";
-import mailLogo from "../../assets/SignuppageImages/mail.png";
-import { useNavigate } from "react-router-dom";
-
 
 const Verify = () => {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const valid = useNavigate();
-  function gotoemail(){
-    valid("/email")
-  }
+    const [email, setEmail] = useState(""); // User's email (used for OTP verification and resend)
+    const [otp, setOtp] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
 
+    const handleVerify = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setMessage("");
+        setError("");
 
-  const sendOtp = (email) => {
-    if (!email) {
-      setMessage("Please enter a valid email.");
-      return;
-    }
+        try {
+            const res = await axios.post("https://newsportalbackend-crdw.onrender.com/api/user/verify-email", {
+                email,
+                otp
+            });
+            setMessage(res.data.message);
+            setOtp("");
+            setEmail("");
+        } catch (err) {
+            setError(err.response?.data?.message || "Verification failed. Try again!");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    setLoading(true);
-    setMessage(""); // Reset message before sending OTP
+    const handleResendOTP = async () => {
+        setLoading(true);
+        setMessage("");
+        setError("");
 
-    axios
-      .post("https://newsportalbackend-crdw.onrender.com/api/user/resend-otp", { email })
-      .then((response) => {
-        setMessage(response.data.message);
+        try {
+            const res = await axios.post("https://newsportalbackend-crdw.onrender.com/api/user/resend-otp", {
+                email
+            });
+            setMessage(res.data.message);
+        } catch (err) {
+            setError(err.response?.data?.message || "Couldn't resend OTP.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      
+    return (
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+                <h2 className="text-2xl font-semibold text-center text-[#101450] mb-4">Verify Your Email</h2>
+                <p className="text-sm text-center text-gray-600 mb-6">Please enter the OTP sent to your email to verify your account.</p>
 
-      })
-      .catch((error) => {
-        setMessage(error.response?.data?.message || "Failed to send OTP");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+                {message && <p className="text-green-600 text-center mb-2">{message}</p>}
+                {error && <p className="text-red-500 text-center mb-2">{error}</p>}
 
+                <form onSubmit={handleVerify} className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">OTP</label>
+                        <input
+                            type="text"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                            placeholder="Enter OTP"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                            required
+                        />
+                    </div>
 
+                    <button
+                        type="submit"
+                        className="w-full bg-[#101450] text-white font-medium py-2 rounded-lg hover:bg-[#0e113f]"
+                        disabled={loading}
+                    >
+                        {loading ? "Verifying..." : "Verify OTP"}
+                    </button>
+                </form>
 
-  return (
-    <div className="flex flex-col items-center">
-      <h2 className="text-3xl font-bold text-blue-900 p-10 text-center">
-        Verify your account
-      </h2>
-      <p className="text-center text-gray-500">
-        Please enter your email to receive OTP.
-      </p>
-
-      {/* Email Verification Card */}
-      <div className="mt-6 max-w-xs p-4 rounded-lg text-center border border-[#7900BA]">
-        <div className="flex items-center justify-center p-2 mb-2">
-          <img src={mailLogo} alt="Mail Logo" className="w-5" />
-          <input
-            type="email"
-            placeholder="Enter email"
-            className="text-gray-700 text-sm md:text-base border rounded px-2 py-1 w-full outline-none"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <img src={editLogo} alt="Edit Logo" className="w-5" />
+                <div className="mt-4 text-center">
+                    <button
+                        onClick={handleResendOTP}
+                        className="text-sm text-[#101450] hover:underline"
+                        disabled={loading || !email}
+                    >
+                        {loading ? "Sending OTP..." : "Resend OTP"}
+                    </button>
+                </div>
+            </div>
         </div>
-        <button
-          onClick={() => sendOtp(email)}
-          className="mt-2 w-40 bg-[#1C2059] text-white py-1 rounded-lg"
-          disabled={loading}
-        >
-          {loading ? "Sending..." : "Send OTP"}
-        </button>
-      </div>
-
-      {message && <p className="text-green-600 text-sm mt-4">{message}</p>}
-
-      <p className="text-gray-500 text-sm text-center w-[310px] mt-9 px-4">
-        Make sure you have access to your email to receive the code.
-      </p>
-
-      <button className="mt-10 w-full max-w-sm bg-[#1C2059] text-white py-2 rounded-lg" onClick={gotoemail}>
-        Continue
-      </button>
-
-    </div>
-  );
+    );
 };
 
 export default Verify;

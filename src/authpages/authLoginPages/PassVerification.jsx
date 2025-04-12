@@ -1,51 +1,104 @@
-import React ,{ useState } from 'react'
-import { Link } from 'react-router-dom';
-import passVeri from '../../assets/loginPageImages/pass.png'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import passVeri from '../../assets/loginPageImages/pass.png';
 import axios from 'axios';
 
-
 const PassVerification = () => {
+  const [otp, setOtp] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {cd 
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'https://newsportalbackend-crdw.onrender.com/api/user/reset-password',
+        {
+          otp,
+          password,
+          confirmPassword
+        }
+      );
+
+      alert(response.data.message || "Password reset successful!");
+      navigate('/log-in');
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Something went wrong.");
+    }
+  };
 
   return (
-    <div className='flex w-[100%] flex-col-reverse items-center justify-center md:flex-row md:flex lg:h-screen md:h-screen h-full'>
-        <div className="bg-white rounded-lg shadow-lg border border-[#878787] border-zinc-400 m-4 p-1">
-            <div className="p-6 space-y-4 sm:p-8">
-                <p className='py-2 text-xl text-[#282828]'>Welcome back !</p>
-                    <h1 className="text-xl mb-1 font-semibold md:text-2xl">
-                        Reset link Sent!
-                    </h1>
-                    <p className='text-sm text-[#282828]'>
-                        A reset link is sent to your register email
-                    </p>
-                    <form className="flex justify-center flex-col">
-                        {/* <div>
-                            <label for="otp" className="block mb-2 text-zinc-800 text-sm font-medium">Enter your Verification Code</label>
-                            <input type="otp" name="otp" id="otp" onChange={(e)=> setResetToken(e.target.value)} value={resetToken}
-                            className="border mb-1 border-gray-300  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 border-gray-600  placeholder-gray-400 focus:ring-blue-500  focus:border-blue-500" placeholder="459212" required="">
-                            </input>
-                        </div> */}
-                        <div className="flex items-center justify-end mb-1.5 lg:mb-5 md:mb-2.5">
-                        {/* <a href="#" className="text-xs font-medium text-zinc-400 hover:underline">LogIn</a> */}
-                            {/* <p className="text-sm font-light text-gray-500 text-gray-400 flex justify-center">
-                            Go Back to<Link to='/log-in' className="font-medium hover:underline text-[#101450] ">login</Link>
-                            </p> */}
-                        </div>
-                        <Link to='/log-in' >
-                        <button className="my-4 lg:mb-6 md:mb-3 mb-2 w-full text-white bg-[#101450] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  bg-primary-600  hover:bg-primary-700  focus:ring-primary-800">Continue</button>
-                        </Link>
-                        <div>
-                        <p className="text-sm font-light flex justify-center">
-                            Don’t have an Account ? <Link to="/sign-up" className="font-medium hover:underline text-[#101450] ">Register</Link>
-                        </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        <div className='m-4'><img src={passVeri} alt="" className='size-70'/></div>
+    <div className='flex w-full flex-col-reverse items-center justify-center md:flex-row h-full lg:h-screen'>
+      <div className="bg-white rounded-lg shadow-lg border border-[#878787] m-4 p-1 w-full max-w-md">
+        <div className="p-6 space-y-4 sm:p-8">
+          <p className='py-2 text-xl text-[#282828]'>Welcome back!</p>
+          <h1 className="text-xl font-semibold md:text-2xl mb-1">Reset Your Password</h1>
+          <p className='text-sm text-[#282828]'>Enter the OTP sent to your email and set a new password.</p>
+
+          {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+
+          <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+            <label className="text-sm font-medium mb-1">Enter OTP</label>
+            <input
+              type="text"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              placeholder="Enter OTP from email"
+              className="border border-gray-300 rounded-lg p-2 mb-4"
+              required
+            />
+
+            <label className="text-sm font-medium mb-1">New Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="New Password"
+              className="border border-gray-300 rounded-lg p-2 mb-4"
+              required
+            />
+
+            <label className="text-sm font-medium mb-1">Confirm New Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm Password"
+              className="border border-gray-300 rounded-lg p-2 mb-4"
+              required
+            />
+
+            <button
+              type="submit"
+              className="my-2 w-full text-white bg-[#101450] hover:bg-[#1f1c70] font-medium rounded-lg text-sm px-5 py-2.5"
+            >
+              Reset Password
+            </button>
+
+            <p className="text-sm font-light flex justify-center mt-2">
+              Don’t have an Account?{" "}
+              <Link to="/sign-up" className="font-medium hover:underline text-[#101450] ml-1">
+                Register
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <div className='m-4'>
+        <img src={passVeri} alt="Password Reset" className='size-70' />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default PassVerification
-
-// https://newsportalbackend-crdw.onrender.com/api/v1/users/reset/:resetToken
+export default PassVerification;

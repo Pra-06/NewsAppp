@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import EyeIcon from '../../assets/loginPageImages/eye-open.png';
 import EyeOffIcon from '../../assets/loginPageImages/eye.png';
 import panaLogo from "../../assets/SignuppageImages/pana.png";
@@ -41,6 +42,12 @@ const Signup = () => {
                 password: "",
                 confirmPassword: ""
             });
+
+            // Store email for OTP verification step
+            localStorage.setItem("email", formData.email);
+
+            // Optional: navigate to OTP page
+            window.location.href = "/verify";
         })
         .catch((err) => {
             setError(err.response?.data?.message || "Something went wrong!");
@@ -115,11 +122,7 @@ const Signup = () => {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                                 >
-                                    {showPassword ? (
-                                        <img src={EyeOffIcon} className="w-6" />
-                                    ) : (
-                                        <img src={EyeIcon} className="w-6" />
-                                    )}
+                                    <img src={showPassword ? EyeOffIcon : EyeIcon} className="w-6" alt="Toggle visibility" />
                                 </button>
                             </div>
                         </div>
@@ -140,11 +143,7 @@ const Signup = () => {
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                                 >
-                                    {showConfirmPassword ? (
-                                        <img src={EyeOffIcon} className="w-6" />
-                                    ) : (
-                                        <img src={EyeIcon} className="w-6" />
-                                    )}
+                                    <img src={showConfirmPassword ? EyeOffIcon : EyeIcon} className="w-6" alt="Toggle visibility" />
                                 </button>
                             </div>
                         </div>
@@ -157,17 +156,21 @@ const Signup = () => {
                             {loading ? "Signing up..." : "Sign Up"}
                         </button>
 
-                        <p className="text-sm font-light text-black flex justify-center border">
-                            Already have an account? <a href="#" className="font-medium hover:underline text-[#101450]"> Login</a>
+                        <p className="text-sm font-light text-black flex justify-center border-t pt-2">
+                            Already have an account?{" "}
+                            <Link to="/" className="font-medium hover:underline text-[#101450] ml-1">
+                                Login
+                            </Link>
                         </p>
                     </form>
                 </div>
             </div>
             <div className="m-4">
-                <img src={panaLogo} alt="" className="size-70" />
+                <img src={panaLogo} alt="Signup Illustration" className="size-70" />
             </div>
         </div>
     );
 };
 
 export default Signup;
+

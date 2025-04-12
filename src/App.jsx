@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { authActions } from "./store/auth"; 
+import { authActions } from "./store/auth";
 
 import Navbar from './Components/Navbar/Navbar';
 import Logo from './Components/Logo/Logo';
@@ -23,6 +23,8 @@ import ForgetPassword from './authpages/authLoginPages/ForgetPassword';
 import PassVerification from './authpages/authLoginPages/PassVerification';
 import Email from './authpages/authSignUpPages/Email';  
 import Verify from './authpages/authSignUpPages/Verify';
+
+import Verification from './authpages/authSignUpPages/Verification'; // ✅ NEW IMPORT
 import AboutUs from './Pages/AboutUs';
 import AdvertisementWithUS from './Pages/Advertisement';
 import TermsAndCondition from './Pages/TermsAndCondition';
@@ -48,7 +50,6 @@ function App() {
     <div className="bg-gray-100 min-h-screen">
       {isLoggedIn && <Logo />}
       {isLoggedIn && <Navbar />}
-      {/* {console.log(isLoggedIn)} */}
 
       <Routes>
         {isLoggedIn ? (
@@ -76,6 +77,8 @@ function App() {
             <Route path="/password-verification" element={<PassVerification />} /> 
             <Route path="/verify" element={<Verify />} />
             <Route path="/email" element={<Email />} /> 
+           
+            <Route path="/verification" element={<Verification />} /> {/* ✅ NEW ROUTE */}
           </>
         )}
       </Routes>
