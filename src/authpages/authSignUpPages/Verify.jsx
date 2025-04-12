@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom'; // Importing useNavigate
 
 const Verify = () => {
     const [email, setEmail] = useState(""); // User's email (used for OTP verification and resend)
@@ -7,6 +8,7 @@ const Verify = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate(); // Initialize useNavigate for redirection
 
     const handleVerify = async (e) => {
         e.preventDefault();
@@ -22,6 +24,11 @@ const Verify = () => {
             setMessage(res.data.message);
             setOtp("");
             setEmail("");
+
+            // Redirect after successful verification
+            setTimeout(() => {
+                navigate('/log-in'); // Redirect to login page (or you can navigate to another page)
+            }, 1000);
         } catch (err) {
             setError(err.response?.data?.message || "Verification failed. Try again!");
         } finally {

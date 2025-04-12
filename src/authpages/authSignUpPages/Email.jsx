@@ -26,7 +26,7 @@ const Email = () => {
 
     try {
       const response = await axios.post(
-        "https://newsportalbackend-crdw.onrender.com/api/user/verify-email",
+        "https://newsportalbackend-crdw.onrender.com/api/user/resend-otp",
         { otp }
       );
 

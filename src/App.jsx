@@ -76,7 +76,7 @@ function App() {
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/password-verification" element={<PassVerification />} /> 
             <Route path="/verify" element={<Verify />} />
-            <Route path="/email" element={<Email />} /> 
+            <Route path="/E~mail" element={<Email />} /> 
            
             <Route path="/verification" element={<Verification />} /> {/* ✅ NEW ROUTE */}
           </>

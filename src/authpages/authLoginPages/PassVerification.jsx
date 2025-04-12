@@ -4,27 +4,25 @@ import passVeri from '../../assets/loginPageImages/pass.png';
 import axios from 'axios';
 
 const PassVerification = () => {
+  const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {cd 
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+   
 
     try {
       const response = await axios.post(
         'https://newsportalbackend-crdw.onrender.com/api/user/reset-password',
         {
+          email,
           otp,
-          password,
-          confirmPassword
+          newPassword: password 
         }
       );
 
@@ -47,6 +45,18 @@ const PassVerification = () => {
           {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
           <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+            {/* Email */}
+            <label className="text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="border border-gray-300 rounded-lg p-2 mb-4"
+              required
+            />
+
+            {/* OTP */}
             <label className="text-sm font-medium mb-1">Enter OTP</label>
             <input
               type="text"
@@ -57,6 +67,7 @@ const PassVerification = () => {
               required
             />
 
+            {/* New Password */}
             <label className="text-sm font-medium mb-1">New Password</label>
             <input
               type="password"
@@ -67,22 +78,13 @@ const PassVerification = () => {
               required
             />
 
-            <label className="text-sm font-medium mb-1">Confirm New Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm Password"
-              className="border border-gray-300 rounded-lg p-2 mb-4"
-              required
-            />
-
             <button
               type="submit"
               className="my-2 w-full text-white bg-[#101450] hover:bg-[#1f1c70] font-medium rounded-lg text-sm px-5 py-2.5"
             >
               Reset Password
             </button>
+          
 
             <p className="text-sm font-light flex justify-center mt-2">
               Don’t have an Account?{" "}
@@ -94,6 +96,7 @@ const PassVerification = () => {
         </div>
       </div>
 
+      {/* Right-side image */}
       <div className='m-4'>
         <img src={passVeri} alt="Password Reset" className='size-70' />
       </div>

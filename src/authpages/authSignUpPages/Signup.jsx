@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+;
+import { Link, useNavigate } from "react-router-dom";
 import EyeIcon from '../../assets/loginPageImages/eye-open.png';
 import EyeOffIcon from '../../assets/loginPageImages/eye.png';
 import panaLogo from "../../assets/SignuppageImages/pana.png";
 
 const Signup = () => {
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -42,7 +44,7 @@ const Signup = () => {
                 password: "",
                 confirmPassword: ""
             });
-
+     
             // Store email for OTP verification step
             localStorage.setItem("email", formData.email);
 
