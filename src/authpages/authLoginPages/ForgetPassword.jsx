@@ -85,7 +85,7 @@ const ForgetPassword = () => {
               type="submit"
               className="my-4 w-full text-white bg-[#101450] hover:bg-[#0e113f] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
-              Send Reset Link
+              Send OTP
             </button>
 
             <div>
