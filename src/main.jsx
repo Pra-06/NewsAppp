@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import store from "./src/store/index.js"
+import store from "./store/index.js"
 
 import './index.css'
-import App from './src/App.jsx'
+import App from './App.jsx'
 import { BrowserRouter as Router} from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -15,5 +15,4 @@ createRoot(document.getElementById('root')).render(
       </Provider>
     </Router>
   </StrictMode>
-)/* 
-hola */
+)
