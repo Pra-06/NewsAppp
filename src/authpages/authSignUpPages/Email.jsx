@@ -26,18 +26,18 @@ const Email = () => {
 
     try {
       const response = await axios.post(
-        "https://newsportalbackend-crdw.onrender.com/api/user/resend-otp",
-        { otp }
+        "https://newsportalbackend-crdw.onrender.com/api/user/verify-email",
+        { email, otp }
       );
 
       if (response.data.success) {
-        setMessage("✅ OTP verification successful! Your account is now activated.");
+        setMessage("OTP verification successful! Your account is now activated.");
       } else {
-        setError("❌ Invalid OTP. Please try again.");
+        setError("Invalid OTP. Please try again.");
       }
     } catch (err) {
-      setError("⚠️ Something went wrong. Please try again.");
-      console.error(err);
+      console.error("Verification Error:", err);
+      setError(err.response?.data?.message || "⚠️ Something went wrong. Please try again.");
     }
   };
 
@@ -54,11 +54,11 @@ const Email = () => {
       if (response.data.success) {
         setMessage("📨 OTP has been resent successfully!");
       } else {
-        setError("❌ Failed to resend OTP. Please try again.");
+        setError(" Failed to resend OTP. Please try again.");
       }
     } catch (err) {
-      setError("⚠️ Could not resend OTP. Try again later.");
-      console.error(err);
+      console.error("Resend Error:", err);
+      setError(err.response?.data?.message || "⚠️ Could not resend OTP. Try again later.");
     }
   };
 
