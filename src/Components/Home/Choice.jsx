@@ -50,7 +50,7 @@ export default function Choice() {
         {[
           { title: "Budget 2025", to: "/budget-2025" },
           { title: "Crime", to: "/crime" },
-          { title: "Accidents", to: "/accidents"}
+          { title: "Accidents", to: "/accidents"},
           { title: "Sports", to: "/sports" },
           { title: "Politics", to: "/politics" },
           { title: "Elections", to: "/elections" },

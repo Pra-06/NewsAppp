@@ -33,6 +33,7 @@ import Verify from './authpages/authSignUpPages/Verify';
 import Verification from './authpages/authSignUpPages/Verification';
 
 import './App.css';
+import ContactUs from "./Pages/ContactUs";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
             <Route path="/budget-2025" element={<Budget />} />
 
             {/* Info Pages */}
+            <Route path="/contactus" element={<ContactUs />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/advertise" element={<AdvertisementWithUS />} />
             <Route path="/termsandcondition" element={<TermsAndCondition />} />

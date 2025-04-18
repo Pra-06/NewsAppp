@@ -7,7 +7,7 @@ const AdvertiseWithUs = () => {
       
       <div className="relative flex-col w-full">
         <img
-          src="/src/assets/footer/Advertise With us.png"
+          src="/src/assets/Footer/footer.png"
           alt="Advertise With Us"
           className="w-full h-full object-cover"
         />

@@ -7,7 +7,7 @@ const TermsAndCondition = () => {
       
       <div className="relative flex-col w-full">
         <img
-          src="/src/assets/footer/termsAndCondition.png"
+          src="/src/assets/Footer/termsAndCondition.png"
           alt="Terms and Condition"
           className="w-full h-full object-cover"
         />

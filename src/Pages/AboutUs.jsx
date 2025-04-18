@@ -62,7 +62,7 @@ export default function AboutUs() {
           </button>
         </div>
         <div className="w-full lg:w-1/2 xl:w-1/2 p-6">
-          <img src="your-image-url.jpg" alt="About Us Image" className="w-full h-full object-cover object-center" />
+          <img src="" alt="About Us Image" className="w-full h-full object-cover object-center" />
         </div>
       </div>
     </div>
