@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Crime = () => {
+const Culture = () => {
   const crimeArticles = [
     {
       image: "/src/assets/linkimages/techo.png",
@@ -60,4 +60,4 @@ const Crime = () => {
   );
 };
 
-export default Crime;
+export default Culture;

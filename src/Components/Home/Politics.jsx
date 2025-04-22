@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Crime = () => {
+const Politics = () => {
   const crimeArticles = [
     {
       image: "/src/assets/linkimages/techo.png",
       title: "India: Canada creating ‘environment for illegal migration and crime",
       timestamp: "02, Jan, 2025 00:38",
-      link: "/innercrime",
+      link: "/innerpolitics",
     },
     {
       image: "/src/assets/linkimages/iit.png",
@@ -60,4 +60,4 @@ const Crime = () => {
   );
 };
 
-export default Crime;
+export default Politics;

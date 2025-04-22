@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Crime = () => {
+const Sports = () => {
   const crimeArticles = [
     {
       image: "/src/assets/linkimages/techo.png",
       title: "India: Canada creating ‘environment for illegal migration and crime",
       timestamp: "02, Jan, 2025 00:38",
-      link: "/innercrime",
+      link: "/innersports",
     },
     {
       image: "/src/assets/linkimages/iit.png",
@@ -38,7 +38,7 @@ const Crime = () => {
 
   return (
     <div className="p-6 bg-white ml-45 mx-auto w-80%">
-      <h2 className="text-xl font-bold mb-4">Crime 2025</h2>
+      <h2 className="text-xl font-bold mb-4">Sports 2025</h2>
       <div className="space-y-4">
         {crimeArticles.map((article, index) => (
           <div key={index} className="flex items-start space-x-4">
@@ -60,4 +60,4 @@ const Crime = () => {
   );
 };
 
-export default Crime;
+export default Sports;

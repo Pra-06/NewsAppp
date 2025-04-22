@@ -31,7 +31,7 @@ const Budget = () => {
           {/* Center Column - Wider */}
           <div className="md:col-span-2 flex flex-col">
             <img 
-              src="/images/budget1.png" 
+              src="/src/assets/linkimages/techo.png" 
               alt="Budget 2025" 
               className="w-full h-auto rounded-md" 
             />
@@ -47,7 +47,7 @@ const Budget = () => {
           <div className="space-y-4 flex flex-col self-start">
             <div>
               <img 
-                src="/images/budget2.png" 
+                src="/src/assets/linkimages/kiddo.png" 
                 alt="Tax wheels on office cars" 
                 className="w-full h-auto rounded-md" 
               />
@@ -58,7 +58,7 @@ const Budget = () => {
             </div>
             <div>
               <img 
-                src="/images/budget3.png" 
+                src="/src/assets/linkimages/manmohan.png" 
                 alt="Mar-o-Lago" 
                 className="w-full h-auto rounded-md" 
               />
@@ -76,7 +76,7 @@ const Budget = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex space-x-4 items-start">
             <img 
-              src="/images/budget5.png" 
+              src="/src/assets/linkimages/iit.png" 
               alt="Live news" 
               className="w-40 h-28 rounded-md" 
             />
@@ -87,7 +87,7 @@ const Budget = () => {
           </div>
           <div className="flex space-x-4 items-start">
             <img 
-              src="/images/budget4.png" 
+              src="/src/assets/linkimages/whatever.png" 
               alt="Live news" 
               className="w-40 h-28 rounded-md" 
             />
